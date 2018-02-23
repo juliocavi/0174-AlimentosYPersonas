@@ -62,6 +62,32 @@ public class Persona
     }
 
     /**
+     * Cuando preguntamos a la persona nos contesta, dependiendo de si su limite basal esta sobrepasado o no, 
+     * y de si la longitud de la pregunta es divisible entre 3. 
+     * Si ha sobrepasado el limite basal o la pregunta contiene el nombre de la persona, 
+     * la respuesta es en mayusculas indiferentemente de la longitud de la pregunta.
+     * 
+     * calorias<limiteBasal y modulo == 0 --> si
+     * calorias>limiteBasal y modulo != 0 --> no
+     * calorias>limiteBasal || pregunta.contains(nombre) --> respuesta = pregunta
+     */
+    public String contestar(String pregunta)
+    {
+        String respuesta = "";
+        int longitud = pregunta.length();
+        if(calorias>metabolismoBasal || pregunta.toLowerCase().contains(nombre.toLowerCase())){
+            respuesta = pregunta;
+        }
+        else if((longitud % 3 == 0)){
+            respuesta = "si";
+        }
+        else if((longitud % 3 != 0)){
+            respuesta = "no";
+        }
+        return respuesta.toUpperCase();
+    }
+    
+    /**
      * Devuelve el numero de calorias totales ingeridas hasta el momento.
      * @return devuelve el numero de calorias totales ingeridas hasta el momento.
      */
