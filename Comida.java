@@ -33,4 +33,13 @@ public class Comida
     {
         return calorias;
     }
+    
+    /**
+     * Devuelve el nombre de la comida
+     * @return el nombre de la comida
+     */
+    public String getNombre()
+    {
+        return comida;
+    }
 }

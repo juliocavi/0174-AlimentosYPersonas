@@ -15,6 +15,7 @@ public class Persona
     private int edad = 0;
     private int calorias = 0;
     private double metabolismoBasal = 0;
+    private Comida comidaMasCaloriasIngerida;
 
     /**
      * Constructor para objetos de la clase Persona
@@ -38,6 +39,7 @@ public class Persona
         else{
             metabolismoBasal = (10*peso) + (6*altura) + (5*edad) - 161;
         }
+        comidaMasCaloriasIngerida = null;
     }
 
     /**
@@ -52,11 +54,20 @@ public class Persona
     {
         int caloriasDeLaComida = 0;
         if(hombre && calorias>metabolismoBasal || !hombre && calorias>metabolismoBasal){
+            System.out.println("No quiero comer más");
             caloriasDeLaComida = -1;
         }
         else{
             calorias += comida.getCalorias();
             caloriasDeLaComida = comida.getCalorias();
+            if(comidaMasCaloriasIngerida != null){
+                if(comida.getCalorias() >= comidaMasCaloriasIngerida.getCalorias()){
+                    comidaMasCaloriasIngerida = comida;
+                }
+            }
+            else{
+                comidaMasCaloriasIngerida = comida;
+            }
         }
         return caloriasDeLaComida;
     }
@@ -66,10 +77,6 @@ public class Persona
      * y de si la longitud de la pregunta es divisible entre 3. 
      * Si ha sobrepasado el limite basal o la pregunta contiene el nombre de la persona, 
      * la respuesta es en mayusculas indiferentemente de la longitud de la pregunta.
-     * 
-     * calorias<limiteBasal y modulo == 0 --> si
-     * calorias>limiteBasal y modulo != 0 --> no
-     * calorias>limiteBasal || pregunta.contains(nombre) --> respuesta = pregunta
      */
     public String contestar(String pregunta)
     {
@@ -84,9 +91,27 @@ public class Persona
         else if((longitud % 3 != 0)){
             respuesta = "no";
         }
+        System.out.println(respuesta);
         return respuesta.toUpperCase();
     }
-    
+
+    /**
+     * Devuelve la comida con más calorias ingerida hasta el momento
+     * @return la comida con más calorias consumida hasta el momento
+     */
+    public String getAlimentoMasCaloricoConsumido()
+    {
+        String comidaMasCalorias = null;
+        if(comidaMasCaloriasIngerida != null){
+            comidaMasCalorias = comidaMasCaloriasIngerida.getNombre();
+            System.out.println(comidaMasCalorias);
+        }
+        else{
+            System.out.println("aún no he comido");
+        }
+        return comidaMasCalorias;
+    }
+
     /**
      * Devuelve el numero de calorias totales ingeridas hasta el momento.
      * @return devuelve el numero de calorias totales ingeridas hasta el momento.
